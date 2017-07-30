@@ -269,6 +269,26 @@ define('karomi-ember/tests/test-helper', ['exports', 'karomi-ember/tests/helpers
 
   (0, _emberQunit.setResolver)(_karomiEmberTestsHelpersResolver['default']);
 });
+define('karomi-ember/tests/unit/helpers/route-fix-test', ['exports', 'karomi-ember/helpers/route-fix', 'qunit'], function (exports, _karomiEmberHelpersRouteFix, _qunit) {
+
+  (0, _qunit.module)('Unit | Helper | route fix');
+
+  // Replace this with your real tests.
+  (0, _qunit.test)('it works', function (assert) {
+    var result = (0, _karomiEmberHelpersRouteFix.routeFix)([42]);
+    assert.ok(result);
+  });
+});
+define('karomi-ember/tests/unit/helpers/route-param-test', ['exports', 'karomi-ember/helpers/route-param', 'qunit'], function (exports, _karomiEmberHelpersRouteParam, _qunit) {
+
+  (0, _qunit.module)('Unit | Helper | route param');
+
+  // Replace this with your real tests.
+  (0, _qunit.test)('it works', function (assert) {
+    var result = (0, _karomiEmberHelpersRouteParam.routeParam)([42]);
+    assert.ok(result);
+  });
+});
 define('karomi-ember/tests/unit/routes/404-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleFor)('route:404', 'Unit | Route | 404', {
