@@ -1924,16 +1924,16 @@ define('karomi-ember/routes/index', ['exports', 'ember', 'karomi-ember/mixins/re
       routeUrl: '/cross-stitch-frames/1'
       // description: 'Quite eye catching, these interlinked bold half flower cushions sit beautifully to form a full rose when kept together. These can be used as a standalone for a striking impact.'
     }, {
-      name: 'Rug',
-      longName: 'Rug',
-      size: '34 x 75.5 in inches',
-      material: 'Eri Cotton and Raw Silk',
-      color: 'Muga and Green',
-      careInstruction: 'Hand wash',
-      info: ['Hand woven', 'Hand wash', 'The Eri silk gives warmth in winter and coolness in summer', 'No side effects on direct contact with the skin', 'Non violent silk', 'Inclusive of fillers', 'Warp Yarn: Handspun Cotton', 'Weft Yarn: Eri Silk', 'Motif yarn: 2 ply wool', 'Trims: Eri Cotton Tassels'],
-      imageUrl: 'assets/img/Products/Meditation-area/6.jpg',
-      routeUrl: '/collection/meditation-area/6',
-      description: 'This Karomi, Asamiya Serenity Rug is woven with Eri-cotton as the centre and Raw silk on the sides. The Rug is further accessorized with tassels on two sides. A thin layer of 6mm foam is inserted on the middle of the rug and gives a very comfortable feel while relaxing on it.'
+      name: 'Tissue napkins and table mat set',
+      longName: 'Tissue flower embroidered napkins and table mat set',
+      size: '9.5 x 9.5 (in inches) – Napkins – 2 pieces & 19.5 x 13 (in inches) – Mat – 1 piece',
+      material: 'Tissue',
+      color: 'White',
+      careInstruction: 'Washable',
+      info: ['Tissue', 'Embroidery', 'Set of 3 pieces', 'Contemporary'],
+      imageUrl: 'assets/img/Products/Table-sets/1.jpg',
+      routeUrl: '/table-kitchen/table-sets/1',
+      description: 'Decorate your dining table with this subtle and beautiful napkins and mat set. This set will leave your guests marveling. This set is thoughtfully designed to meet your daily use on the table.'
     }, {
       name: 'Indigo dyed Floral Napkins',
       longName: 'Half flower full sequined heavy work Tassar cushion',
