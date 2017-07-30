@@ -269,6 +269,26 @@ define('karomi-ember/tests/test-helper', ['exports', 'karomi-ember/tests/helpers
 
   (0, _emberQunit.setResolver)(_karomiEmberTestsHelpersResolver['default']);
 });
+define('karomi-ember/tests/unit/helpers/div-by-four-test', ['exports', 'karomi-ember/helpers/div-by-four', 'qunit'], function (exports, _karomiEmberHelpersDivByFour, _qunit) {
+
+  (0, _qunit.module)('Unit | Helper | div by four');
+
+  // Replace this with your real tests.
+  (0, _qunit.test)('it works', function (assert) {
+    var result = (0, _karomiEmberHelpersDivByFour.divByFour)([42]);
+    assert.ok(result);
+  });
+});
+define('karomi-ember/tests/unit/helpers/end-row-div-test', ['exports', 'karomi-ember/helpers/end-row-div', 'qunit'], function (exports, _karomiEmberHelpersEndRowDiv, _qunit) {
+
+  (0, _qunit.module)('Unit | Helper | end row div');
+
+  // Replace this with your real tests.
+  (0, _qunit.test)('it works', function (assert) {
+    var result = (0, _karomiEmberHelpersEndRowDiv.endRowDiv)([42]);
+    assert.ok(result);
+  });
+});
 define('karomi-ember/tests/unit/helpers/route-fix-test', ['exports', 'karomi-ember/helpers/route-fix', 'qunit'], function (exports, _karomiEmberHelpersRouteFix, _qunit) {
 
   (0, _qunit.module)('Unit | Helper | route fix');
@@ -287,6 +307,17 @@ define('karomi-ember/tests/unit/helpers/route-param-test', ['exports', 'karomi-e
   (0, _qunit.test)('it works', function (assert) {
     var result = (0, _karomiEmberHelpersRouteParam.routeParam)([42]);
     assert.ok(result);
+  });
+});
+define('karomi-ember/tests/unit/mixins/reset-scroll-test', ['exports', 'ember', 'karomi-ember/mixins/reset-scroll', 'qunit'], function (exports, _ember, _karomiEmberMixinsResetScroll, _qunit) {
+
+  (0, _qunit.module)('Unit | Mixin | reset scroll');
+
+  // Replace this with your real tests.
+  (0, _qunit.test)('it works', function (assert) {
+    var ResetScrollObject = _ember['default'].Object.extend(_karomiEmberMixinsResetScroll['default']);
+    var subject = ResetScrollObject.create();
+    assert.ok(subject);
   });
 });
 define('karomi-ember/tests/unit/routes/404-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
