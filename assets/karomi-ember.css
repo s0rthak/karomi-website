@@ -14623,4 +14623,10 @@ a.itg-button.Checkout-btns,
 .bg-yellow > div {
   background-color: #fffee4 !important; }
 
+.banner-section .special-style-semidark:before {
+  background-color: #1bbc9b; }
+
+.dark-only.dark-only.dark-only:hover {
+  background-color: #202020; }
+
 /*# sourceMappingURL=karomi-ember.css.map */
