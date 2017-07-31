@@ -14629,4 +14629,7 @@ a.itg-button.Checkout-btns,
 .dark-only.dark-only.dark-only:hover {
   background-color: #202020; }
 
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+  color: #1bbc9b !important; }
+
 /*# sourceMappingURL=karomi-ember.css.map */
