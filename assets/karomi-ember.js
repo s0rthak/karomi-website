@@ -24,12 +24,15 @@ define('karomi-ember/app', ['exports', 'ember', 'karomi-ember/resolver', 'ember-
 });
 define('karomi-ember/components/about-page', ['exports', 'ember', 'karomi-ember/config/environment'], function (exports, _ember, _karomiEmberConfigEnvironment) {
   exports['default'] = _ember['default'].Component.extend({
-    rootURL: _karomiEmberConfigEnvironment['default'].rootURL
+    rootURL: _karomiEmberConfigEnvironment['default'].rootURL,
+    classNames: ['bg-yellow']
   });
 });
 define('karomi-ember/components/collection-page', ['exports', 'ember', 'karomi-ember/config/environment'], function (exports, _ember, _karomiEmberConfigEnvironment) {
   exports['default'] = _ember['default'].Component.extend({
     rootURL: _karomiEmberConfigEnvironment['default'].rootURL,
+    classNames: ['bg-yellow'],
+
     didInsertElement: function didInsertElement() {
       window.scrollTo(0, 0);
     },
@@ -168,6 +171,14 @@ define('karomi-ember/components/karomi-header', ['exports', 'ember', 'karomi-emb
     }
   });
 });
+define('karomi-ember/components/light-box', ['exports', 'ember-cli-lightbox/components/light-box'], function (exports, _emberCliLightboxComponentsLightBox) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberCliLightboxComponentsLightBox['default'];
+    }
+  });
+});
 define('karomi-ember/components/product-page', ['exports', 'ember', 'karomi-ember/config/environment'], function (exports, _ember, _karomiEmberConfigEnvironment) {
 
   function openCity(evt, cityName) {
@@ -207,6 +218,7 @@ define('karomi-ember/components/product-page', ['exports', 'ember', 'karomi-embe
 
   exports['default'] = _ember['default'].Component.extend({
     rootURL: _karomiEmberConfigEnvironment['default'].rootURL,
+    classNames: ['bg-yellow'],
     didInsertElement: function didInsertElement() {
       var tabLinks = $('.tablinks');
       tabLinks.on('click', function () {
@@ -327,6 +339,22 @@ define('karomi-ember/initializers/data-adapter', ['exports'], function (exports)
     name: 'data-adapter',
     before: 'store',
     initialize: function initialize() {}
+  };
+});
+define('karomi-ember/initializers/ember-cli-lightbox', ['exports', 'karomi-ember/config/environment', 'ember-cli-lightbox/initializers/ember-cli-lightbox'], function (exports, _karomiEmberConfigEnvironment, _emberCliLightboxInitializersEmberCliLightbox) {
+  exports.initialize = initialize;
+
+  function initialize() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _emberCliLightboxInitializersEmberCliLightbox['default'].initialize.apply(null, [_karomiEmberConfigEnvironment['default']['ember-cli-lightbox']].concat(args));
+  }
+
+  exports['default'] = {
+    name: _emberCliLightboxInitializersEmberCliLightbox['default'].name,
+    initialize: initialize
   };
 });
 define('karomi-ember/initializers/ember-data', ['exports', 'ember-data/setup-container', 'ember-data'], function (exports, _emberDataSetupContainer, _emberData) {
@@ -587,6 +615,7 @@ define('karomi-ember/routes/collection/meditation-area', ['exports', 'ember', 'k
       careInstruction: 'Hand wash',
       info: ['Hand woven', 'Hand wash', 'Non violent silk', 'Warp Yarn: Handspun Cotton', 'Weft Yarn: Eri Silk', 'Motif yarn: 2 ply wool'],
       imageUrl: baseUrl + '/2.jpg',
+      altImages: [baseUrl + '/2a.jpg'],
       routeUrl: '/collection/meditation-area/2',
       description: 'These Karomi, Asamiya Serenity Candle stand covers are square shaped coves and are made with THE Eri woven fabric. The base is made of a 12 mm thick ply.'
     }, {
@@ -609,6 +638,7 @@ define('karomi-ember/routes/collection/meditation-area', ['exports', 'ember', 'k
       careInstruction: 'Hand wash',
       info: ['Hand woven', 'Hand wash', 'The Eri silk gives warmth in winter and coolness in summer', 'No side effects on direct contact with the skin', 'Non violent silk', 'Inclusive of fillers', 'Warp Yarn: Handspun Cotton', 'Weft Yarn: Eri Silk', 'Motif yarn: 2 ply wool', 'Trims: Poplin lace for tying on both ends', 'Closure: Velcro'],
       imageUrl: baseUrl + '/4.jpg',
+      altImages: [baseUrl + '/4a.jpg', baseUrl + '/4b.jpg'],
       routeUrl: '/collection/meditation-area/4',
       description: 'These Karomi, Asamiya Serenity Floor Cushions are made with 3 distinct motifs and the cushioning is made out of natural cotton and its gives a very comfortable feel to the person resting on it.'
     }, {
@@ -631,6 +661,7 @@ define('karomi-ember/routes/collection/meditation-area', ['exports', 'ember', 'k
       careInstruction: 'Hand wash',
       info: ['Hand woven', 'Hand wash', 'The Eri silk gives warmth in winter and coolness in summer', 'No side effects on direct contact with the skin', 'Non violent silk', 'Inclusive of fillers', 'Warp Yarn: Handspun Cotton', 'Weft Yarn: Eri Silk', 'Motif yarn: 2 ply wool', 'Trims: Eri Cotton Tassels'],
       imageUrl: baseUrl + '/6.jpg',
+      altImages: [baseUrl + '/6a.jpg'],
       routeUrl: '/collection/meditation-area/6',
       description: 'This Karomi, Asamiya Serenity Rug is woven with Eri-cotton as the centre and Raw silk on the sides. The Rug is further accessorized with tassels on two sides. A thin layer of 6mm foam is inserted on the middle of the rug and gives a very comfortable feel while relaxing on it.'
     }, {
@@ -811,6 +842,7 @@ define('karomi-ember/routes/cushions/couple-cushions', ['exports', 'ember', 'kar
       careInstruction: 'Dry Clean only',
       info: ['Thread embroidery', 'Contemporary', 'Set of 2', 'Satin', 'No Fillers included', 'Dry clean only', 'Top Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/2.jpg',
+      altImages: [baseUrl + '/2a.jpg'],
       routeUrl: '/cushions/couple-cushions/2',
       description: 'Bringing the quote “you always have my back” to reality, these cats showcase love and care. The vivid deep pink colour serves to be an ideal background for the striking cat couple.'
     }, {
@@ -905,6 +937,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Wool embroidery', 'Embossed velvet', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/1.jpg',
+      altImages: [baseUrl + '/1a.jpg'],
       routeUrl: '/cushions/cushion-sets/1',
       description: 'The woolen flowers on a light crimson embossed velvet base give a touch of class to these cushions. It is a piece to add contemporary glamour to any space instantly.'
     }, {
@@ -916,6 +949,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Colour Blocking', 'Satin – plain and printed', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/2.jpg',
+      altImages: [baseUrl + '/2a.jpg'],
       routeUrl: '/cushions/cushion-sets/2',
       description: 'A single floral printed cushion amidst a set of plain colour blocked hot pink cushions brings alive the modernity and sophistication of the area in which they are placed.'
     }, {
@@ -938,6 +972,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Satin foam Cutwork', 'Pearl embroidery', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/4.jpg',
+      altImages: [baseUrl + '/4a.jpg'],
       routeUrl: '/cushions/cushion-sets/4',
       description: 'This ostentatiously designed pearl cushion is a sure stunner for those who love bling. This square cushion covers artistically uses pearls to bring glamour to your sofa.'
     }, {
@@ -949,6 +984,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Ikat rendering', 'Sequin embroidery', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/5.jpg',
+      altImages: [baseUrl + '/5a.jpg'],
       routeUrl: '/cushions/cushion-sets/5',
       description: 'Embroidered with sequin, this cushion set is a modern artist\'s rendition of the Ikat weaving technique. The pattern is represented in a modern outlook with intricate sequin hand embroidery is what makes it a must-have.'
     }, {
@@ -960,6 +996,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Twill weave', 'Lace embroidery', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/6.jpg',
+      altImages: [baseUrl + '/6a.jpg'],
       routeUrl: '/cushions/cushion-sets/6',
       description: 'The base of these cushions is set up by the twill woven fabrics.  The cushion has a subtly textured surface. This piece combines a cotton netted laces in white colour with a classicism that never gets out of date.'
     }, {
@@ -982,6 +1019,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Scuba fabric', 'Pearl embroidery', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Top Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/8.jpg',
+      altImages: [baseUrl + '/8a.jpg'],
       routeUrl: '/cushions/cushion-sets/8',
       description: 'This ostentatiously designed orange pearl cushion is a sure stunner for those who love bling. This square cushion covers artistically uses pearls to bring glamour to your sofa.'
     }, {
@@ -993,6 +1031,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Jacquard woven fabric and Raw silk', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/9.jpg',
+      altImages: [baseUrl + '/9a.jpg'],
       routeUrl: '/cushions/cushion-sets/9',
       description: 'This cushion set has been flawlessly printed & foiled on a precious bed of flowers. The use of an embroidered flower on a beige background looks very vibrant and is the sheer stopping power of this contemporary cushion set.'
     }, {
@@ -1026,6 +1065,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Chinkankari cotton', 'Contemporary', 'Set of 4', 'No Fillers included', 'Dry clean only', 'Top Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/12.jpg',
+      altImages: [baseUrl + '/12a.jpg'],
       routeUrl: '/cushions/cushion-sets/12',
       description: 'Yellow, orange and pink comes together to form a redefinition of colours. Heavy zari work overlaid in these cushions provides a sophisticated way of living.'
     }, {
@@ -1037,6 +1077,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Digital print', 'Colourful', 'Contemporary', 'Set of 6', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/13.jpg',
+      altImages: [baseUrl + '/13a.jpg', baseUrl + '/13b.jpg'],
       routeUrl: '/cushions/cushion-sets/13',
       description: 'Bring home this colourful digital print cushion. This cushion certainly shows its uniqueness through the use of different multicoloured backs.'
     }, {
@@ -1048,6 +1089,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Pearl embroidery', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/14.jpg',
+      altImages: [baseUrl + '/14a.jpg'],
       routeUrl: '/cushions/cushion-sets/14',
       description: 'The use of pearl embroidery amidst the print makes this set one-of-its-kind. Fine craftsmanship meets creative heights when pearls come together with the prints and hand-stitching. All this put into an ensemble heightens its lure. Bring home this perfect cushion set for your living space.'
     }, {
@@ -1059,6 +1101,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Chemical lace', 'Hand-woven casement', 'Contemporary', 'Set of 4', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/15.jpg',
+      altImages: [baseUrl + '/15a.jpg'],
       routeUrl: '/cushions/cushion-sets/15',
       description: 'The Stunning chemical lace used as hand embellishment defines this vivid item. The lace is derived from geometric patterns and leads to a modern flavor.'
     }, {
@@ -1070,6 +1113,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['3D Felt flowers', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/16.jpg',
+      altImages: [baseUrl + '/16a.jpg'],
       routeUrl: '/cushions/cushion-sets/16',
       description: 'The 3D felt flowers are a stunning display of hand craftsmanship and design. This cushion set is the perfect amalgam of contemporary craft. Make them sit on your favorite spot to make it more bright and colourful.'
     }, {
@@ -1081,6 +1125,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Foam Quilted', 'Contemporary', 'Set of 6', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/17.jpg',
+      altImages: [baseUrl + '/17a.jpg'],
       routeUrl: '/cushions/cushion-sets/17',
       description: 'Modern and elegant, this scenery puzzle cushion set is hand quilted to get an elegant feel. Spectacular shades of Blue, White and Black are used to create a classic splendor of light and colour.'
     }, {
@@ -1092,6 +1137,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Pom-Pom ornamentation', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/18.jpg',
+      altImages: [baseUrl + '/18a.jpg'],
       routeUrl: '/cushions/cushion-sets/18',
       description: 'This Gorgeous Pom-Pom cushion cover set enlightens the room with the use of bright colours on light background. The flowers vary from 1 to 5 in this cushion set and thus make it a style statement for your living area.'
     }, {
@@ -1103,6 +1149,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Thread embroidery', 'Contemporary', 'Set of 5', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/19.jpg',
+      altImages: [baseUrl + '/19a.jpg'],
       routeUrl: '/cushions/cushion-sets/19',
       description: 'Spruce up your living room decor using these Hand Block Printed cushion covers ornamented with thread embroidery. Add these to your living room and transform it to a classy setting, which is rich in elegance.'
     }, {
@@ -1125,6 +1172,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Thread embroidery', 'Stripes', 'Contemporary', 'Set of 6', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/21.jpg',
+      altImages: [baseUrl + '/21a.jpg'],
       routeUrl: '/cushions/cushion-sets/21',
       description: '"Hakuna Matata" is a Swahili phrase that means "no worries”. This cushion set combines the word Hakuna Matata with vertical, horizontal and slanting stripes.  One-of-its-kind it personifies fun and frolic with the colours used.'
     }, {
@@ -1147,6 +1195,7 @@ define('karomi-ember/routes/cushions/cushion-sets', ['exports', 'ember', 'karomi
       careInstruction: 'Dry Clean only',
       info: ['Embroidered', 'Contemporary', 'Set of 6', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/23.jpg',
+      altImages: [baseUrl + '/23a.jpg'],
       routeUrl: '/cushions/cushion-sets/23',
       description: 'Inspired from nature, these pretty cushions give a very contemporary outlook. Clean coloured lines and great texture gives this cushion a very classic stand-out style. With embroidered butterflies running across a colourful backdrop this cushion set is ideal for breaking the monotony of smooth upholstery.'
     }, {
@@ -1208,6 +1257,7 @@ define('karomi-ember/routes/cushions/decor-metallic-cushions', ['exports', 'embe
       careInstruction: 'Dry Clean only',
       info: ['Thread and Zari embroidery', 'Contemporary', 'Single Piece', 'Jacquard loom fabric', 'No Fillers included', 'Dry clean only', 'Top Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/1.jpg',
+      altImages: [baseUrl + '/1a.jpg'],
       routeUrl: '/cushions/decor-metallic-cushions/1',
       description: 'This pretty checkered cushion reminds us of our grandfathers’ gingham stylish shirt. This cushion is an old fashioned and evergreen pattern which is returned with a contemporary outlook.'
     }, {
@@ -1318,6 +1368,7 @@ define('karomi-ember/routes/cushions/decor-metallic-cushions', ['exports', 'embe
       careInstruction: 'Dry Clean only',
       info: ['Lace embroidery', 'Single Piece', 'Chanderi', 'No Fillers included', 'Dry clean only', 'Top Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/11.jpg',
+      altImages: [baseUrl + '/11a.jpg'],
       routeUrl: '/cushions/decor-metallic-cushions/11',
       description: 'Shimmery dark coloured lace in a neutral tone base has been cleverly placed horizontally to create a texture. This stunning lace embroidery piece is a perfect fit for modern-day castles and palaces.'
     }, {
@@ -1351,6 +1402,7 @@ define('karomi-ember/routes/cushions/decor-metallic-cushions', ['exports', 'embe
       careInstruction: 'Dry Clean only',
       info: ['Thread embroidery', 'Space tucks', 'Single Piece', 'Chanderi', 'No Fillers included', 'Dry clean only', 'Top Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/14.jpg',
+      altImages: [baseUrl + '/14a.jpg'],
       routeUrl: '/cushions/decor-metallic-cushions/14',
       description: 'The herringbone stitch design thread embroidery defines this brilliant piece. The space tucks dark brown back is a perfect contrast to the gorgeous front of the cushion.'
     }, {
@@ -1384,6 +1436,7 @@ define('karomi-ember/routes/cushions/decor-metallic-cushions', ['exports', 'embe
       careInstruction: 'Dry Clean only',
       info: ['Thread and bead embroidery', 'Single Piece', 'High Quality Velvet', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/17.jpg',
+      altImages: [baseUrl + '/17a.jpg'],
       routeUrl: '/cushions/decor-metallic-cushions/17',
       description: 'Embroidery with threads and beads in grey with stitches over a velvet base gives this cushion a distinct poise. Bring home this classy piece and find it never go out of date.'
     }, {
@@ -1434,6 +1487,7 @@ define('karomi-ember/routes/cushions/kids-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Sequins embroidery', 'Shimmer Satin', 'Set of 2', 'Filler included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/1.jpg',
+      altImages: [baseUrl + '/1a.jpg'],
       routeUrl: '/cushions/kids-cushions/1',
       description: 'Inspired from mermaids, the pretty parts like the sky blue colour and the shimmery sequins used in the cushions have been taken. This cushion can cheer up your Childs mood in seconds.'
     }, {
@@ -1489,6 +1543,7 @@ define('karomi-ember/routes/cushions/kids-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Thread embroidered and patchwork of face features', 'Jersey stretch', 'Set of 4', 'Filler included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/6.jpg',
+      altImages: [baseUrl + '/6a.jpg'],
       routeUrl: '/cushions/kids-cushions/6',
       description: 'Fun plus comfort is all your child deserves. This Sinchan cushion set is cuddled in soft fabrics and Comprises of four pieces with four facial expressions. This set is a perfect addition to your child\'s room.'
     }, {
@@ -1511,6 +1566,7 @@ define('karomi-ember/routes/cushions/kids-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Contemporary', 'Set of 2', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/8.jpg',
+      altImages: [baseUrl + '/8a.jpg'],
       routeUrl: '/cushions/kids-cushions/8',
       description: 'Decorate your child\'s room with this designer Hello Kitty cushions. Made from the highest quality fabric, this cushion is soft and comfortable. Gift your little ones with this super cute hello kitty themed cushion covers and liven up their mood.'
     }, {
@@ -1522,6 +1578,7 @@ define('karomi-ember/routes/cushions/kids-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['3D Turtle', 'Contemporary', 'Single piece', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/9.jpg',
+      altImages: [baseUrl + '/9a.jpg'],
       routeUrl: '/cushions/kids-cushions/9',
       description: 'Karomi brings this toy cushion cover to decorate your little one\'s playroom. This cushion cover features fun and vibrant colours. Simply slip the cover onto the cushion for a quick and stylish update to your kid\'s room.'
     }]
@@ -1594,6 +1651,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Pearl flower motif', 'Checkered lace', 'Contemporary', 'Set of 2', 'Raw silk', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/4.jpg',
+      altImages: [baseUrl + '/4a.jpg'],
       routeUrl: '/cushions/pair-cushions/4',
       description: 'Small geometric squares come together to form the base of these cushions. The embroidered flower motif with pearls creates a stunning showcase of artisanal crafts in these cushions.'
     }, {
@@ -1605,6 +1663,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['3D fabric ornamentation', 'Contemporary', 'Set of 2', 'Jersey stretch', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/5.jpg',
+      altImages: [baseUrl + '/5a.jpg'],
       routeUrl: '/cushions/pair-cushions/5',
       description: '3D design hike new heights in these cushions. The lustrous pastel colours and shades create a neat dimension while the hand feel is very soft and cushy.'
     }, {
@@ -1616,6 +1675,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Tikki Embroidery', 'Contemporary', 'Set of 2', 'Jersey', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/6.jpg',
+      altImages: [baseUrl + '/6a.jpg'],
       routeUrl: '/cushions/pair-cushions/6',
       description: 'These cushions homes a fashionable border by its beads embroidery. One-of-its-kind, subtly textured, this cushion cover personifies style and high end fashion.'
     }, {
@@ -1627,6 +1687,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Contrast cord piping', 'Contemporary', 'Set of 2', 'Denim', 'No Fillers included', 'Dry clean only', 'Back Closure: Wooden Buttons'],
       imageUrl: baseUrl + '/7.jpg',
+      altImages: [baseUrl + '/7a.jpg', baseUrl + '/7b.jpg'],
       routeUrl: '/cushions/pair-cushions/7',
       description: 'A contemporized rendition of the evergreen strong denims, these cushions is that bold statement that is made with simplicity. The use of gray color with a contrasting piping makes this cushion a must-have.'
     }, {
@@ -1638,6 +1699,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Pearl outline', 'Contemporary', 'Set of 2', 'Soft net with cotton Lining', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/8.jpg',
+      altImages: [baseUrl + '/8a.jpg'],
       routeUrl: '/cushions/pair-cushions/8',
       description: 'These classic & minimal cushions create a textured effect with the use of net on the base. The pearl outline style adds polish & luster to these cushions.'
     }, {
@@ -1649,6 +1711,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Appliqué', 'Contemporary', 'Set of 2', 'Furry fabric and back Raw silk', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/9.jpg',
+      altImages: [baseUrl + '/9a.jpg'],
       routeUrl: '/cushions/pair-cushions/9',
       description: 'The use of fur fabric in these cushions provides a soft texture and maximum comfort with a touch of glamour. The appliqué generates a visual impact and increases the look. Let this sit atop Off-White upholstery, in combination with faded hues to get that striking visual impact.'
     }, {
@@ -1660,6 +1723,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Flower embroidery', 'Contemporary', 'Set of 2', 'Printed georgette', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/10.jpg',
+      altImages: [baseUrl + '/10a.jpg'],
       routeUrl: '/cushions/pair-cushions/10',
       description: 'Bringing the colourful period to life, these cushions put a regal demeanor at display. The vivid multicolored print, serves to be an ideal background for the striking flower embroidery. This bold and beautiful piece deserves to be the center of attraction. Ideal for the living room, this can be placed on a neutral colored couch; this could also sit comfortably with beige, matt gold or black.'
     }, {
@@ -1671,6 +1735,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Flower Embroidery', 'Contemporary', 'Set of 2', 'Velvet', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/11.jpg',
+      altImages: [baseUrl + '/11a.jpg'],
       routeUrl: '/cushions/pair-cushions/11',
       description: 'These cushions are inspired by the hibiscus flower and are designed to brighten your favorite seating. These embroidered cushions are ideal for those with a fine taste in home decor. An embroidered flower and the deep red backdrop makes this cushion an interesting pick.'
     }, {
@@ -1682,6 +1747,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Lace', 'Tassels', 'Contemporary', 'Set of 2', 'Jacquard loom fabric', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/12.jpg',
+      altImages: [baseUrl + '/12a.jpg'],
       routeUrl: '/cushions/pair-cushions/12',
       description: 'These clean lined and great textured cushion covers are designed to break the monotony of the smooth upholstery.  These lace ornamented covers are available in the shade of apricot sepia.  Further the tassels added on the four corners of the cushions add a statement to the furnishings.'
     }, {
@@ -1694,6 +1760,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       info: ['Straw pipe highlights', 'Contemporary', 'Set of 2', 'Hand-woven cotton', 'No Fillers included', 'Dry clean only', 'Back Closure: Wooden Buttons'],
       imageUrl: baseUrl + '/13.jpg',
       routeUrl: '/cushions/pair-cushions/13',
+      altImages: [baseUrl + '/13a.jpg'],
       description: 'These elegant pillow cases brings alive the vintage gild by the dreamy highlights of embellishments. The play of straw pipes creates a visual treat.'
     }, {
       name: 'Dual coloured Sequin Cushions',
@@ -1704,6 +1771,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Sequins embroidery', 'Contemporary', 'Set of 2', 'Shimmer', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/14.jpg',
+      altImages: [baseUrl + '/14a.jpg'],
       routeUrl: '/cushions/pair-cushions/14',
       description: 'These cushions in a neutral tone have been cleverly worked upon to create a texture. Introduction of two coloured sequins gives these cushions two different colours when touched and felt. This stunning piece is a perfect fit for modern-day houses.'
     }, {
@@ -1715,6 +1783,7 @@ define('karomi-ember/routes/cushions/pair-cushions', ['exports', 'ember', 'karom
       careInstruction: 'Dry Clean only',
       info: ['Space Tucks', 'Contemporary', 'Set of 2', 'Printed Shimmer and Raw silk', 'No Fillers included', 'Dry clean only', 'Top Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/15.jpg',
+      altImages: [baseUrl + '/15a.jpg'],
       routeUrl: '/cushions/pair-cushions/15',
       description: 'These cushions are a modern artist\'s rendition of the colour blocking technique. The pattern represented in silver and black and the addition of space tucks is what makes it a great choice.'
     }, {
@@ -1776,6 +1845,7 @@ define('karomi-ember/routes/cushions/theme-cushions', ['exports', 'ember', 'karo
       careInstruction: 'Dry Clean only',
       info: ['Bead work', 'Contemporary', 'Set of 2', 'Hand woven cotton base with satin back', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/1.jpg',
+      altImages: [baseUrl + '/1a.jpg', baseUrl + '/1b.jpg'],
       routeUrl: '/cushions/theme-cushions/1',
       description: 'These car and bicycle motifs symbolize a modified version of hand embroidery. The design is embroidered with straw pipes and thread. This is a classic piece for all vehicle lovers.'
     }, {
@@ -1798,6 +1868,7 @@ define('karomi-ember/routes/cushions/theme-cushions', ['exports', 'ember', 'karo
       careInstruction: 'Dry Clean only',
       info: ['Thread work', 'Contemporary', 'Set of 4', 'Shiny Cotton', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/3.jpg',
+      altImages: [baseUrl + '/3a.jpg'],
       routeUrl: '/cushions/theme-cushions/3',
       description: 'These cushions in the colours of Red and Black expertly worked with thread hand embroidery best showcase this playing cards themed cushion. This masterfully crafted playing cards cushion set is hard to let go of.'
     }, {
@@ -1853,6 +1924,7 @@ define('karomi-ember/routes/cushions/theme-cushions', ['exports', 'ember', 'karo
       careInstruction: 'Dry Clean only',
       info: ['Appliqué', 'Contemporary', 'Single piece', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/8.jpg',
+      altImages: [baseUrl + '/8a.jpg'],
       routeUrl: '/cushions/theme-cushions/8',
       description: 'Karomi brings to you a vibrant and high quality cushion cover which is a perfect room decor item for your superhero loving child. This cushion cover comes with Spider Man appliqué on it. Add a touch of contemporary glamour to the room with this cushion cover.'
     }, {
@@ -1864,6 +1936,7 @@ define('karomi-ember/routes/cushions/theme-cushions', ['exports', 'ember', 'karo
       careInstruction: 'Dry Clean only',
       info: ['Appliqué', 'Contemporary', 'Single piece', 'No Fillers included', 'Dry clean only', 'Back Closure: Premium quality zipper'],
       imageUrl: baseUrl + '/9.jpg',
+      altImages: [baseUrl + '/9a.jpg'],
       routeUrl: '/cushions/theme-cushions/9',
       description: 'This Mickey Mouse cushion cover is exclusively designed for all cartoon lover kids. This cushion provides an extra layer of softness with the use of twill fabric. The use of these cheerful colors is especially for kids to pick and choose from.'
     }]
@@ -1924,16 +1997,16 @@ define('karomi-ember/routes/index', ['exports', 'ember', 'karomi-ember/mixins/re
       routeUrl: '/cross-stitch-frames/1'
       // description: 'Quite eye catching, these interlinked bold half flower cushions sit beautifully to form a full rose when kept together. These can be used as a standalone for a striking impact.'
     }, {
-      name: 'Tissue napkins and table mat set',
-      longName: 'Tissue flower embroidered napkins and table mat set',
-      size: '9.5 x 9.5 (in inches) – Napkins – 2 pieces & 19.5 x 13 (in inches) – Mat – 1 piece',
-      material: 'Tissue',
-      color: 'White',
-      careInstruction: 'Washable',
-      info: ['Tissue', 'Embroidery', 'Set of 3 pieces', 'Contemporary'],
-      imageUrl: 'assets/img/Products/Table-sets/1.jpg',
-      routeUrl: '/table-kitchen/table-sets/1',
-      description: 'Decorate your dining table with this subtle and beautiful napkins and mat set. This set will leave your guests marveling. This set is thoughtfully designed to meet your daily use on the table.'
+      name: 'Rug',
+      longName: 'Rug',
+      size: '34 x 75.5 in inches',
+      material: 'Eri Cotton and Raw Silk',
+      color: 'Muga and Green',
+      careInstruction: 'Hand wash',
+      info: ['Hand woven', 'Hand wash', 'The Eri silk gives warmth in winter and coolness in summer', 'No side effects on direct contact with the skin', 'Non violent silk', 'Inclusive of fillers', 'Warp Yarn: Handspun Cotton', 'Weft Yarn: Eri Silk', 'Motif yarn: 2 ply wool', 'Trims: Eri Cotton Tassels'],
+      imageUrl: 'assets/img/Products/Meditation-area/6.jpg',
+      routeUrl: '/collection/meditation-area/6',
+      description: 'This Karomi, Asamiya Serenity Rug is woven with Eri-cotton as the centre and Raw silk on the sides. The Rug is further accessorized with tassels on two sides. A thin layer of 6mm foam is inserted on the middle of the rug and gives a very comfortable feel while relaxing on it.'
     }, {
       name: 'Indigo dyed Floral Napkins',
       longName: 'Half flower full sequined heavy work Tassar cushion',
@@ -2313,6 +2386,7 @@ define('karomi-ember/routes/table-kitchen/table-napkins', ['exports', 'ember', '
       careInstruction: 'Washable',
       info: ['Cotton', 'Indigo dyed', 'Floral print', 'Set of 6 pieces', 'Contemporary'],
       imageUrl: baseUrl + '/1.jpg',
+      altImages: [baseUrl + '/1a.jpg'],
       routeUrl: '/table-kitchen/table-napkins/1',
       description: 'This Indigo dyed napkins brought to you Karomi, brings to you a set of floral printed napkins outlined by black and blue. This set adds an exotic touch to your dining.'
     }, {
@@ -2324,6 +2398,7 @@ define('karomi-ember/routes/table-kitchen/table-napkins', ['exports', 'ember', '
       careInstruction: 'Washable',
       info: ['Cotton', 'Cross Stitch', 'Floral arc', 'Set of 5 pieces', 'Contemporary'],
       imageUrl: baseUrl + '/2.jpg',
+      altImages: [baseUrl + '/2a.jpg'],
       routeUrl: '/table-kitchen/table-napkins/2',
       description: 'This Indigo dyed napkins brought to you Karomi, brings to you a set of floral printed napkins outlined by black and blue. This set adds an exotic touch to your dining.'
     }, {
@@ -2710,6 +2785,7 @@ define('karomi-ember/routes/table-kitchen/table-runners', ['exports', 'ember', '
       careInstruction: 'Dry Clean only',
       info: ['Hand painted', 'Foam Quilted', 'Shimmery Chiffon', 'Single piece', 'Contemporary'],
       imageUrl: baseUrl + '/16.jpg',
+      altImages: [baseUrl + '/16a.jpg'],
       routeUrl: '/table-kitchen/table-runners/16',
       description: 'This Runner is a textile masterpiece. It is hand painted and hand-quilted to derive perfection. This splendid number announces your rarified style.'
     }, {
@@ -2721,6 +2797,7 @@ define('karomi-ember/routes/table-kitchen/table-runners', ['exports', 'ember', '
       careInstruction: 'Dry Clean only',
       info: ['Hand painted', 'Thread Tassels', 'Appliqué ', 'Single piece', 'Contemporary'],
       imageUrl: baseUrl + '/17.jpg',
+      altImages: [baseUrl + '/17a.jpg'],
       routeUrl: '/table-kitchen/table-runners/17',
       description: 'This Runner is textured with a hand painted flower appliqué. The flower and the base colour create a light and shade quality. This runner can be spread anywhere to create tactile luxury.'
     }, {
@@ -2891,7 +2968,7 @@ define("karomi-ember/templates/components/karomi-header", ["exports"], function 
   exports["default"] = Ember.HTMLBars.template({ "id": "o8ttYYOg", "block": "{\"statements\":[[\"open-element\",\"header\",[]],[\"flush-element\"],[\"text\",\"\\n    \"],[\"comment\",\"//==preloader Start==//\"],[\"text\",\"\\n\"],[\"text\",\"    \"],[\"comment\",\"//==preloader End==//\"],[\"text\",\"\\n    \"],[\"comment\",\"//==top bar start==//\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"top-middle-section\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-12 col-sm-12 col-xs-12\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row pad-top-bottom10 head-top-sec\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-6 col-sm-5 col-xs-12 \"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"figure\",[]],[\"static-attr\",\"class\",\"logo-box\"],[\"static-attr\",\"style\",\"padding-top: 0;\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"link-to\"],[\"index\"],null,17],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-6 col-sm-7 col-xs-12\"],[\"static-attr\",\"style\",\"padding-top: 12px;\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"top-bars-icon-section\"],[\"flush-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-4 col-sm-4 col-xs-12\"],[\"flush-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"top-icons-box1\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"#\"],[\"flush-element\"],[\"open-element\",\"i\",[]],[\"static-attr\",\"class\",\"fa fa-phone\"],[\"static-attr\",\"aria-hidden\",\"true\"],[\"flush-element\"],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"top-icons-box2\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"p\",[]],[\"static-attr\",\"style\",\"padding-top: 8px;\"],[\"flush-element\"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"tel:+919435553333\"],[\"flush-element\"],[\"text\",\"94355 53333\"],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-4 col-sm-4 col-xs-12\"],[\"flush-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"top-icons-box1\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"#\"],[\"flush-element\"],[\"open-element\",\"i\",[]],[\"static-attr\",\"class\",\"fa fa-envelope-o\"],[\"static-attr\",\"aria-hidden\",\"true\"],[\"flush-element\"],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"top-icons-box2\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"p\",[]],[\"static-attr\",\"style\",\"padding-top: 8px;\"],[\"flush-element\"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"mailto:contact@karomi.in\"],[\"flush-element\"],[\"text\",\"contact@karomi.in\"],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"  \\n                  \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"comment\",\"//==mega menu start==//\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"id\",\"main-menu\"],[\"static-attr\",\"class\",\"wa-main-menu\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"comment\",\" Menu \"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"wathemes-menu relative\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"comment\",\" navbar \"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"navbar navbar-default navbar-bg-dark\"],[\"static-attr\",\"role\",\"navigation\"],[\"flush-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-12 col-sm-12 col-xs-12\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"navbar-header pad-top15 pad-bottom15\"],[\"flush-element\"],[\"text\",\"\\n                  \"],[\"comment\",\" Button For Responsive toggle \"],[\"text\",\"\\n                  \"],[\"open-element\",\"button\",[]],[\"static-attr\",\"type\",\"button\"],[\"static-attr\",\"class\",\"navbar-toggle\"],[\"static-attr\",\"data-toggle\",\"collapse\"],[\"static-attr\",\"data-target\",\".navbar-collapse\"],[\"flush-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"sr-only\"],[\"flush-element\"],[\"text\",\"Toggle navigation\"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"icon-bar\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"icon-bar\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"icon-bar\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                  \"],[\"close-element\"],[\"text\",\"\\n                  \\n                  \"],[\"open-element\",\"a\",[]],[\"static-attr\",\"class\",\"navbar-brand hidden-sm hidden-md hidden-lg logo-second\"],[\"static-attr\",\"href\",\"/\"],[\"flush-element\"],[\"text\",\"\\n                                        \"],[\"open-element\",\"img\",[]],[\"static-attr\",\"class\",\"site_logo\"],[\"static-attr\",\"alt\",\"Site Logo\"],[\"dynamic-attr\",\"src\",[\"concat\",[[\"unknown\",[\"rootURL\"]],\"assets/img/small-logo.png\"]]],[\"static-attr\",\"height\",\"40\"],[\"static-attr\",\"style\",\"margin: 0 10px;\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                                        \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"comment\",\" Navbar Collapse \"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"navbar-collapse collapse\"],[\"flush-element\"],[\"text\",\"\\n                  \"],[\"comment\",\" nav \"],[\"text\",\"\\n                  \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"nav navbar-nav\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"text\",\"                    \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"text\",\"\\n                      \"],[\"block\",[\"link-to\"],[\"about\"],null,16],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"a\",[]],[\"flush-element\"],[\"text\",\"Cushions\"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"dropdown-menu\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"cushions.couple-cushions\",\"home\"],null,15],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"cushions.cushion-sets\",\"home\"],null,14],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"cushions.decor-metallic-cushions\",\"home\"],null,13],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"cushions.kids-cushions\",\"home\"],null,12],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"cushions.pair-cushions\",\"home\"],null,11],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"cushions.theme-cushions\",\"home\"],null,10],[\"close-element\"],[\"text\",\"\\n                      \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"a\",[]],[\"flush-element\"],[\"text\",\"Collection\"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"dropdown-menu\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"collection.meditation-area\",\"home\"],null,9],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"collection.block-printed-bedroom-collection\",\"home\"],null,8],[\"close-element\"],[\"text\",\"\\n                      \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"a\",[]],[\"flush-element\"],[\"text\",\"Table & Kitchen\"],[\"close-element\"],[\"text\",\"\\n                      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"dropdown-menu\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"table-kitchen.kitchen-oven-accessories\",\"home\"],null,7],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"table-kitchen.table-linens\",\"home\"],null,6],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"table-kitchen.table-napkins\",\"home\"],null,5],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"table-kitchen.table-placemats\",\"home\"],null,4],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"table-kitchen.table-runners\",\"home\"],null,3],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"table-kitchen.table-sets\",\"home\"],null,2],[\"close-element\"],[\"text\",\"\\n                        \"],[\"comment\",\" <li class=\\\"left-side\\\">\\n                          <a href=\\\"#\\\">Single Blog</a>\\n                          <ul class=\\\"dropdown-menu\\\">\\n                            <li><a href=\\\"blog-detail-sidebar.html\\\">With Sidebar</a></li>\\n                            <li><a href=\\\"blog-detail-no-sidebar.html\\\">Without Sidebar</a></li>\\n                          </ul>\\n                        </li> \"],[\"text\",\"\\n                      \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"text\",\"\\n                      \"],[\"block\",[\"link-to\"],[\"cross-stitch-frames\",\"home\"],null,1],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"li\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"collapseNavbar\"]],[\"flush-element\"],[\"text\",\"\\n                     \"],[\"block\",[\"link-to\"],[\"contact\"],null,0],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                  \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"comment\",\" navbar-collapse \"],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"comment\",\" col-md-12 \"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"comment\",\" row \"],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"comment\",\" container \"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"comment\",\" navbar \"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n      \"],[\"comment\",\"  Menu \"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"comment\",\"//==mega menu end==//\"],[\"text\",\"\\n  \"],[\"close-element\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"Contact\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Cross Stitch Frames\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Table Sets\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Table Runners\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Table Placemats\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Table Napkins\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Table Linens\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Kitchen & Oven Accessories\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Block Printed Bedroom Collection\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Meditation Area\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Theme Cushions\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Pair Cushions\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Kids Cushions\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Decor and Metallic Cushions\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Cushion Sets\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Couple Cushions\"]],\"locals\":[]},{\"statements\":[[\"text\",\"About\"]],\"locals\":[]},{\"statements\":[[\"text\",\"                \"],[\"open-element\",\"img\",[]],[\"static-attr\",\"alt\",\"\"],[\"dynamic-attr\",\"src\",[\"concat\",[[\"unknown\",[\"rootURL\"]],\"assets/img/logo.png\"]]],[\"static-attr\",\"height\",\"75\"],[\"flush-element\"],[\"close-element\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "karomi-ember/templates/components/karomi-header.hbs" } });
 });
 define("karomi-ember/templates/components/product-page", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "ldZnvpMf", "block": "{\"statements\":[[\"comment\",\"//==breadcrumb-section Start==//\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"breadcrumb-section-box\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"special-style special-style-full special-style-semidark col-md-12 col-md-offset-0 pull-right\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"bg-image\"],[\"dynamic-attr\",\"style\",[\"concat\",[\"background-image:url('\",[\"unknown\",[\"rootURL\"]],\"assets/img/backdrop.jpg');background-position: bottom;\"]]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-12 col-sm-12 pad-top100 pad-bottom100 heading-box\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"h3\",[]],[\"static-attr\",\"class\",\"heading-breadcrumb box-z text-center\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"clear\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"breadcrumb-box\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"breadcrumb\"],[\"flush-element\"],[\"text\",\"\\n                                \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n                                    \"],[\"open-element\",\"a\",[]],[\"static-attr\",\"class\",\"sab-heading-breadcrumb box-z\"],[\"static-attr\",\"href\",\"index.html\"],[\"flush-element\"],[\"text\",\"home\"],[\"close-element\"],[\"text\",\"\\n                                \"],[\"close-element\"],[\"text\",\"\\n                                \"],[\"open-element\",\"li\",[]],[\"static-attr\",\"class\",\"heading-wa box-z activ\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"collectionName\"]],false],[\"close-element\"],[\"text\",\"\\n                            \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"blog-griad product\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row pad-bottom40 pad-top80\"],[\"flush-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-5 col-sm-5 col-xs-12\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-10 col-sm-10 col-xs-12 pull-right \"],[\"flush-element\"],[\"text\",\"\\n                                \"],[\"open-element\",\"figure\",[]],[\"static-attr\",\"class\",\"product-img\"],[\"flush-element\"],[\"text\",\"\\n                                    \"],[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"concat\",[[\"unknown\",[\"rootURL\"]],[\"unknown\",[\"model\",\"imageUrl\"]]]]],[\"static-attr\",\"alt\",\"\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                                \"],[\"close-element\"],[\"text\",\"\\n                            \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-7 col-sm-7 col-xs-12 responsive-top\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"h3\",[]],[\"static-attr\",\"class\",\"theme-headdings text-left product-detail-title\"],[\"flush-element\"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"#\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"name\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"star-box-section left product-det text-left pad-top15\"],[\"flush-element\"],[\"text\",\"\\n                           \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\" Price on Demand \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"clear\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"per-box texy-left mar-top15\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"description\"]],false],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"head-medial-text pad-top10\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Material: \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"Products-in-stock\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"material\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"head-medial-text pad-top10\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Color: \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"Products-in-stock\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"color\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"head-medial-text pad-top10\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Size: \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"Products-in-stock\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"size\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"head-medial-text pad-top10\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Tags :  \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"Products-in-stock\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"collectionName\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-7 col-sm-7 product-box-btm-blog row\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"a\",[]],[\"dynamic-attr\",\"href\",[\"concat\",[\"mailto:contact@karomi.in?subject=Karomi Product Enquiry&body=Hey, I am interested in buying \",[\"unknown\",[\"model\",\"longName\"]],\", please give me the details\"]]],[\"static-attr\",\"class\",\"itg-button pro btn left mar-top15\"],[\"flush-element\"],[\"text\",\"Buy Now\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-8 col-sm-12 col-xs-12 col-md-offset-1 pad-bottom30 pro-detals-post\"],[\"flush-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Details\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-12 col-sm-12 col-xs-12\"],[\"flush-element\"],[\"text\",\"\\n                                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"Profile box text border pad-top20 pad-bottom20\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"model\",\"description\"]]],null,2],[\"text\",\"                                        \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"style\",\"list-style:initial;\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\",\"info\"]]],null,1],[\"text\",\"                                        \"],[\"close-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"model\",\"careInstruction\"]]],null,0],[\"text\",\"                                    \"],[\"close-element\"],[\"text\",\"\\n                                \"],[\"close-element\"],[\"text\",\"\\n                            \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"                                        \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Care Instruction: \"],[\"append\",[\"unknown\",[\"model\",\"careInstruction\"]],false],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"                                                \"],[\"open-element\",\"li\",[]],[\"static-attr\",\"style\",\"list-style:initial;\"],[\"flush-element\"],[\"append\",[\"get\",[\"info\"]],false],[\"text\",\" \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"info\"]},{\"statements\":[[\"text\",\"                                        \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"description\"]],false],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "karomi-ember/templates/components/product-page.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "9sTeCJ71", "block": "{\"statements\":[[\"comment\",\"//==breadcrumb-section Start==//\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"breadcrumb-section-box\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"special-style special-style-full special-style-semidark col-md-12 col-md-offset-0 pull-right\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"bg-image\"],[\"dynamic-attr\",\"style\",[\"concat\",[\"background-image:url('\",[\"unknown\",[\"rootURL\"]],\"assets/img/backdrop.jpg');background-position: bottom;\"]]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-12 col-sm-12 pad-top100 pad-bottom100 heading-box\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"h3\",[]],[\"static-attr\",\"class\",\"heading-breadcrumb box-z text-center\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"clear\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"breadcrumb-box\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"breadcrumb\"],[\"flush-element\"],[\"text\",\"\\n                                \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n                                    \"],[\"open-element\",\"a\",[]],[\"static-attr\",\"class\",\"sab-heading-breadcrumb box-z\"],[\"static-attr\",\"href\",\"index.html\"],[\"flush-element\"],[\"text\",\"home\"],[\"close-element\"],[\"text\",\"\\n                                \"],[\"close-element\"],[\"text\",\"\\n                                \"],[\"open-element\",\"li\",[]],[\"static-attr\",\"class\",\"heading-wa box-z activ\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"collectionName\"]],false],[\"close-element\"],[\"text\",\"\\n                            \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"blog-griad product\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row pad-bottom40 pad-top80\"],[\"flush-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-5 col-sm-5 col-xs-12\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-10 col-sm-10 col-xs-12 pull-right \"],[\"flush-element\"],[\"text\",\"\\n                                \"],[\"open-element\",\"figure\",[]],[\"static-attr\",\"class\",\"product-img\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"text\",\"                                    \"],[\"append\",[\"helper\",[\"light-box\"],null,[[\"href\",\"data-lightbox\",\"data-title\"],[[\"helper\",[\"concat\"],[[\"get\",[\"rootURL\"]],[\"get\",[\"model\",\"imageUrl\"]]],null],\"Product Image\",[\"get\",[\"model\",\"longName\"]]]]],false],[\"text\",\"\\n                                \"],[\"close-element\"],[\"text\",\"\\n                            \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-7 col-sm-7 col-xs-12 responsive-top\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"h3\",[]],[\"static-attr\",\"class\",\"theme-headdings text-left product-detail-title\"],[\"flush-element\"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"#\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"name\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"star-box-section left product-det text-left pad-top15\"],[\"flush-element\"],[\"text\",\"\\n                           \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\" Price on Demand \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"clear\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"per-box texy-left mar-top15\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"description\"]],false],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"head-medial-text pad-top10\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Material: \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"Products-in-stock\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"material\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"head-medial-text pad-top10\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Color: \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"Products-in-stock\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"color\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"head-medial-text pad-top10\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Size: \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"Products-in-stock\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"size\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"head-medial-text pad-top10\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Tags :  \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"Products-in-stock\"],[\"flush-element\"],[\"append\",[\"unknown\",[\"collectionName\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-7 col-sm-7 product-box-btm-blog row\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"a\",[]],[\"dynamic-attr\",\"href\",[\"concat\",[\"mailto:contact@karomi.in?subject=Karomi Product Enquiry&body=Hey, I am interested in buying \",[\"unknown\",[\"model\",\"longName\"]],\", please give me the details\"]]],[\"static-attr\",\"class\",\"itg-button pro btn left mar-top15\"],[\"flush-element\"],[\"text\",\"Buy Now\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-8 col-sm-12 col-xs-12 col-md-offset-1 pad-bottom30 pro-detals-post\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"model\",\"altImages\",\"length\"]]],null,4],[\"text\",\"                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Details\"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"flush-element\"],[\"text\",\"\\n                            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                                \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-12 col-sm-12 col-xs-12\"],[\"flush-element\"],[\"text\",\"\\n                                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"Profile box text border pad-top20 pad-bottom20\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"model\",\"description\"]]],null,2],[\"text\",\"                                        \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"style\",\"list-style:initial;\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\",\"info\"]]],null,1],[\"text\",\"                                        \"],[\"close-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"model\",\"careInstruction\"]]],null,0],[\"text\",\"                                    \"],[\"close-element\"],[\"text\",\"\\n                                \"],[\"close-element\"],[\"text\",\"\\n                            \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"                                        \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"Care Instruction: \"],[\"append\",[\"unknown\",[\"model\",\"careInstruction\"]],false],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"                                                \"],[\"open-element\",\"li\",[]],[\"static-attr\",\"style\",\"list-style:initial;\"],[\"flush-element\"],[\"append\",[\"get\",[\"info\"]],false],[\"text\",\" \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"info\"]},{\"statements\":[[\"text\",\"                                        \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"description\"]],false],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"                            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-4 col-sm-6 col-xs-12 \"],[\"flush-element\"],[\"text\",\"\\n\"],[\"text\",\"                                    \"],[\"append\",[\"helper\",[\"light-box\"],null,[[\"href\",\"data-lightbox\",\"data-title\"],[[\"helper\",[\"concat\"],[[\"get\",[\"rootURL\"]],[\"get\",[\"image\"]]],null],\"Product Image\",[\"get\",[\"model\",\"longName\"]]]]],false],[\"text\",\"\\n\"],[\"text\",\"                            \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"image\"]},{\"statements\":[[\"text\",\"                    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\" More Images \"],[\"close-element\"],[\"text\",\"\\n                        \"],[\"open-element\",\"div\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\",\"altImages\"]]],null,3],[\"text\",\"                        \"],[\"close-element\"],[\"text\",\"\\n                    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "karomi-ember/templates/components/product-page.hbs" } });
 });
 define("karomi-ember/templates/contact", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "H7srtdkx", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"contact-page\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "karomi-ember/templates/contact.hbs" } });
@@ -2974,7 +3051,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("karomi-ember/app")["default"].create({"name":"karomi-ember","version":"0.0.0+827f1517"});
+  require("karomi-ember/app")["default"].create({"name":"karomi-ember","version":"0.0.0+a24e8722"});
 }
 
 /* jshint ignore:end */
